@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+
+# Build
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+# Dependencies
+**/packages/
+**/node_modules/
+
+# Temporary files
+*.log
+*.tmp
+
+# Python
+**/__pycache__/
+**/venv/
+**/.venv/
+
+# Environment
+.env
+.env.*
