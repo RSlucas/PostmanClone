@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lucas\\OneDrive\\Desktop\\PostmanClone\\PostmanWeb\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5433839A-5DA0-48E5-A6E7-628B6619EC1C}|PostmanWeb\\PostmanWeb.csproj|c:\\users\\lucas\\onedrive\\desktop\\postmanclone\\postmanweb\\postmanweb\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5433839A-5DA0-48E5-A6E7-628B6619EC1C}|PostmanWeb\\PostmanWeb.csproj|solutionrelative:postmanweb\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5433839A-5DA0-48E5-A6E7-628B6619EC1C}|PostmanWeb\\PostmanWeb.csproj|c:\\users\\lucas\\onedrive\\desktop\\postmanclone\\postmanweb\\postmanweb\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5433839A-5DA0-48E5-A6E7-628B6619EC1C}|PostmanWeb\\PostmanWeb.csproj|solutionrelative:postmanweb\\components\\pages\\counter.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Counter.razor",
+              "DocumentMoniker": "C:\\Users\\Lucas\\OneDrive\\Desktop\\PostmanClone\\PostmanWeb\\PostmanWeb\\Components\\Pages\\Counter.razor",
+              "RelativeDocumentMoniker": "PostmanWeb\\Components\\Pages\\Counter.razor",
+              "ToolTip": "C:\\Users\\Lucas\\OneDrive\\Desktop\\PostmanClone\\PostmanWeb\\PostmanWeb\\Components\\Pages\\Counter.razor",
+              "RelativeToolTip": "PostmanWeb\\Components\\Pages\\Counter.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-11-04T19:56:33.088Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\Users\\Lucas\\OneDrive\\Desktop\\PostmanClone\\PostmanWeb\\PostmanWeb\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "PostmanWeb\\Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\Users\\Lucas\\OneDrive\\Desktop\\PostmanClone\\PostmanWeb\\PostmanWeb\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "PostmanWeb\\Components\\Pages\\Home.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-11-04T19:55:22.042Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
