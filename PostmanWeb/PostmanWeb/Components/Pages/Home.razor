@@ -1,11 +1,19 @@
 ﻿@page "/"
+@using PostmanCloneLib
+@inject IApiAcces api
+
 
 <PageTitle>Home</PageTitle>
 
 <h1>Postman Clone</h1>
+<input type="url" @bind="apiUrl"/>
+<button @onclick="CallApi">Call</button>
 
-<form>
-    <label for="homepage">API: </label>
-    <input type="url" id="/home" name="homepage" /><br><br>
-    <input type="submit"/>
-</form>
+@code{
+    private string apiUrl = "";
+
+    private async Task CallApi()
+    {
+        if()
+    }
+}
