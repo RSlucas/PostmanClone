@@ -8,12 +8,22 @@
 <h1>Postman Clone</h1>
 <input type="url" @bind="apiUrl"/>
 <button @onclick="CallApi">Call</button>
+<p>@status</p>
+
 
 @code{
     private string apiUrl = "";
+    private string status = "";
 
     private async Task CallApi()
     {
-        if()
+        status = "Calling Api";
+
+        if(api.IsValidUrl(apiUrl) == false)
+        {
+            status = "Invalid URL";
+            return;
+        }
+
     }
 }
