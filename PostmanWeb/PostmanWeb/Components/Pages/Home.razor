@@ -8,13 +8,16 @@
 <h1>Postman Clone</h1>
 <input type="url" @bind="apiUrl"/>
 <button @onclick="CallApi">Call</button>
-<p>@status</p>
+
 <select @bind="selectedAction">
     <option value="@HttpAction.GET">GET</option>
     <option value="@HttpAction.POST">POST</option>
-
 </select>
-<pre>@resultsText</pre>
+
+
+<textarea>@resultsText</textarea>
+
+<p>@status</p>
 
 @code{
     private string apiUrl = "";
@@ -45,8 +48,13 @@
         try
         {
             status = "Calling API";
-            resultsText = await api.CallApiAsync(apiUrl, bodyText, action);
-            callData.SelectedTab = resultsText;
+            resultsText = await api.CallApiAsync(apiUrl, bodyText, selectedAction);
+            status = "Ready!";
+        }
+        catch(Exception ex)
+        {
+            resultsText = $"Error: {ex.Message}";
+            status = "Error";
         }
 
     }
