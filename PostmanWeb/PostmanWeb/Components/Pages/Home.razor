@@ -9,11 +9,21 @@
 <input type="url" @bind="apiUrl"/>
 <button @onclick="CallApi">Call</button>
 <p>@status</p>
+<select @bind="selectedAction">
+    <option value="@HttpAction.GET">GET</option>
+    <option value="@HttpAction.POST">POST</option>
 
+</select>
+<pre>@resultsText</pre>
 
 @code{
     private string apiUrl = "";
     private string status = "";
+
+    private HttpAction selectedAction = HttpAction.GET;
+
+    string bodyText = "";
+    string resultsText = "";
 
     private async Task CallApi()
     {
@@ -23,6 +33,20 @@
         {
             status = "Invalid URL";
             return;
+        }
+
+        HttpAction action;
+
+        if(Enum.TryParse(selectedAction.ToString(), out action) == false)
+        {
+            status = "Invalid HTTP Verb!";
+        }
+
+        try
+        {
+            status = "Calling API";
+            resultsText = await api.CallApiAsync(apiUrl, bodyText, action);
+            callData.SelectedTab = resultsText;
         }
 
     }
