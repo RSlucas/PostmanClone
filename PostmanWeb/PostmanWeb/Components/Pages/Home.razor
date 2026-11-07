@@ -8,10 +8,10 @@
 <h1>Postman Clone</h1>
 
 <div class="input-group mb-lg-3">
-    <input class="form-control" type="url" @bind="apiUrl" />
+    <input class="form-control" placeholder="Insert your URL..." style="max-width: 400px" type="url" @bind="apiUrl" />
     <button class="btn btn-primary" @onclick="CallApi">Call</button>
 
-    <select class="form-select-lg" @bind="selectedAction">
+    <select class="form-select-lg"  style="max-width: 120px" @bind="selectedAction">
         <option value="@HttpAction.GET">GET</option>
         <option value="@HttpAction.POST">POST</option>
         <option value="@HttpAction.PUT">PUT</option>
@@ -22,10 +22,19 @@
 
 </div>
 
+<div class="row">
+    <div class="col-md-6">
+        <label class="form-label fw-bold">Body JSON</label>
+        <textarea class="text-body" @bind="bodyText" placeholder="Body JSON..."></textarea>
+    </div>
+    <div class="col-md">
+        <label class="form-label fw-bold">Results</label>
+        <textarea class="navbar-text" @bind="resultsText"></textarea>
+    </div>
+</div>
 
-<textarea class="text-body" @bind="bodyText" placeholder="Body JSON..."></textarea>
+<div class="alert @statusClass mt-3">@status</div>
 
-<textarea class="navbar-text" @bind="resultsText"></textarea>
 
 <p>@status</p>
 
@@ -34,17 +43,18 @@
     private string status = "";
 
     private HttpAction selectedAction = HttpAction.GET;
+    private string statusClass = "alert-secondary";
 
     string bodyText = "";
     string resultsText = "";
 
     private async Task CallApi()
     {
-        status = "Calling Api";
+        statusClass = "alert-warning";
 
         if(api.IsValidUrl(apiUrl) == false)
         {
-            status = "Invalid URL";
+            statusClass = "alert-danger";
             return;
         }
 
@@ -52,14 +62,14 @@
 
         try
         {
-            status = "Calling API";
+            statusClass = "alert-warning";
             resultsText = await api.CallApiAsync(apiUrl, bodyText, selectedAction);
-            status = "Ready!";
+            statusClass = "alert-success";
         }
         catch(Exception ex)
         {
             resultsText = $"Error: {ex.Message}";
-            status = "Error";
+            statusClass = "alert-danger";
         }
 
     }
