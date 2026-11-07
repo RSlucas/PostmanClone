@@ -6,16 +6,26 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Postman Clone</h1>
-<input type="url" @bind="apiUrl"/>
-<button @onclick="CallApi">Call</button>
 
-<select @bind="selectedAction">
-    <option value="@HttpAction.GET">GET</option>
-    <option value="@HttpAction.POST">POST</option>
-</select>
+<div class="input-group mb-lg-3">
+    <input class="form-control" type="url" @bind="apiUrl" />
+    <button class="btn btn-primary" @onclick="CallApi">Call</button>
+
+    <select class="form-select-lg" @bind="selectedAction">
+        <option value="@HttpAction.GET">GET</option>
+        <option value="@HttpAction.POST">POST</option>
+        <option value="@HttpAction.PUT">PUT</option>
+        <option value="@HttpAction.PATCH">PATCH</option>
+        <option value="@HttpAction.DELETE">DELETE</option>
+
+    </select>
+
+</div>
 
 
-<textarea>@resultsText</textarea>
+<textarea class="text-body" @bind="bodyText" placeholder="Body JSON..."></textarea>
+
+<textarea class="navbar-text" @bind="resultsText"></textarea>
 
 <p>@status</p>
 
@@ -38,12 +48,7 @@
             return;
         }
 
-        HttpAction action;
-
-        if(Enum.TryParse(selectedAction.ToString(), out action) == false)
-        {
-            status = "Invalid HTTP Verb!";
-        }
+        
 
         try
         {
