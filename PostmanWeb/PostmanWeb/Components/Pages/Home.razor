@@ -33,28 +33,27 @@
     </div>
 </div>
 
-<div class="alert @statusClass mt-3">@status</div>
 
 
-<p>@status</p>
+<pre>@status</pre>
 
 @code{
     private string apiUrl = "";
     private string status = "";
 
     private HttpAction selectedAction = HttpAction.GET;
-    private string statusClass = "alert-secondary";
+    private string statusClass = "";
 
     string bodyText = "";
     string resultsText = "";
 
     private async Task CallApi()
     {
-        statusClass = "alert-warning";
+        statusClass = "calling api...";
 
         if(api.IsValidUrl(apiUrl) == false)
         {
-            statusClass = "alert-danger";
+            statusClass = "Error";
             return;
         }
 
@@ -62,14 +61,14 @@
 
         try
         {
-            statusClass = "alert-warning";
+            statusClass = "calling api";
             resultsText = await api.CallApiAsync(apiUrl, bodyText, selectedAction);
-            statusClass = "alert-success";
+            statusClass = "Ready!";
         }
         catch(Exception ex)
         {
             resultsText = $"Error: {ex.Message}";
-            statusClass = "alert-danger";
+            statusClass = "Error";
         }
 
     }
