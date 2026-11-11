@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using PostmanCloneLib
 @inject IApiAcces api
-
+@using System.Diagnostics
 
 <PageTitle>Home</PageTitle>
 
@@ -33,7 +33,8 @@
     </div>
 </div>
 
-<pre>@status</pre>
+<pre>Status: @status</pre>
+<pre>@sw</pre>
 
 @code{
     private string apiUrl = "";
@@ -44,8 +45,11 @@
     string bodyText = "";
     string resultsText = "";
 
+    private Stopwatch sw = new Stopwatch();
+
     private async Task CallApi()
     {
+
         status = "calling api...";
 
         if(api.IsValidUrl(apiUrl) == false)
@@ -54,16 +58,21 @@
             return;
         }
 
-        
+
 
         try
         {
             status = "calling api";
+            sw.Restart();
+
             resultsText = await api.CallApiAsync(apiUrl, bodyText, selectedAction);
+
+            sw.Stop();
             status = "Ready!";
         }
         catch(Exception ex)
         {
+            sw.Stop();
             resultsText = $"Error: {ex.Message}";
             status = "Error";
         }
