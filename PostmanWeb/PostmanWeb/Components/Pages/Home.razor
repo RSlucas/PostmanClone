@@ -23,17 +23,15 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <label class="form-label fw-bold">Body JSON</label>
-        <textarea class="text-body" @bind="bodyText" placeholder="Body JSON..."></textarea>
+        <textarea class="form-control bg-light" rows="6" @bind="bodyText" placeholder="Json..."></textarea>
     </div>
-    <div class="col-md">
+    <div class="col-md 3">
         <label class="form-label fw-bold">Results</label>
-        <textarea class="navbar-text" @bind="resultsText"></textarea>
+        <pre class="form-control bg-light" style="min-height:150px; height:auto; white-space:pre-wrap; width:max-content; min-width:500px" @bind="resultsText"></pre>
     </div>
 </div>
-
-
 
 <pre>@status</pre>
 
@@ -42,18 +40,17 @@
     private string status = "";
 
     private HttpAction selectedAction = HttpAction.GET;
-    private string statusClass = "";
 
     string bodyText = "";
     string resultsText = "";
 
     private async Task CallApi()
     {
-        statusClass = "calling api...";
+        status = "calling api...";
 
         if(api.IsValidUrl(apiUrl) == false)
         {
-            statusClass = "Error";
+            status = "Error";
             return;
         }
 
@@ -61,14 +58,14 @@
 
         try
         {
-            statusClass = "calling api";
+            status = "calling api";
             resultsText = await api.CallApiAsync(apiUrl, bodyText, selectedAction);
-            statusClass = "Ready!";
+            status = "Ready!";
         }
         catch(Exception ex)
         {
             resultsText = $"Error: {ex.Message}";
-            statusClass = "Error";
+            status = "Error";
         }
 
     }
