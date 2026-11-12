@@ -5,10 +5,20 @@
 
 <PageTitle>Postman Clone</PageTitle>
 
-<div class="container mt-4">
-    <h1 class="mb-4">Postman Clone</h1>
+<div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+    <div>
+        <div class="d-flex align-items-center gap-2">
+            <h1 class="h2 fw-bold mb-0 text-primary">Postman Clone</h1>
+        </div>
+    </div>
 
-    <!-- Bara de control: Metodă + URL + Buton -->
+    <a href="/api" class="btn btn-outline-secondary btn-sm">
+        Test APIs --> 
+    </a>
+</div>
+
+<div class="container mt-4">
+
     <div class="input-group mb-3">
         <select class="form-select" style="max-width: 130px;" @bind="selectedAction">
             @foreach (var action in Enum.GetValues<HttpAction>())
@@ -17,7 +27,7 @@
             }
         </select>
 
-        <input class="form-control" placeholder="Introdu URL-ul (ex: https://jsonplaceholder.typicode.com/todos/1)..." type="url" @bind="apiUrl" />
+        <input class="form-control" placeholder="insert Url" type="url" @bind="apiUrl" />
 
         <button class="btn btn-primary px-4" @onclick="CallApi" disabled="@isLoading">
             @if (isLoading)
@@ -32,7 +42,6 @@
         </button>
     </div>
 
-    <!-- Bara de Status și Timp de răspuns -->
     <div class="d-flex gap-3 align-items-center mb-3">
         <span class="badge @GetStatusBadgeClass() p-2">Status: @status</span>
         @if (sw.ElapsedMilliseconds > 0)
@@ -41,13 +50,12 @@
         }
     </div>
 
-    <!-- Zona Body și Rezultate -->
     <div class="row g-3">
         <div class="col-md-5">
             <label class="form-label fw-bold">Body JSON</label>
             <textarea class="form-control bg-light font-monospace"
                       style="min-height: 250px;"
-                      placeholder="Introdu JSON-ul pentru POST / PUT / PATCH..."
+                      placeholder="body json"
                       disabled="@(selectedAction == HttpAction.GET)"
                       @bind="bodyText"></textarea>
         </div>
@@ -55,7 +63,7 @@
         <div class="col-md-7">
             <div class="d-flex justify-content-between align-items-center mb-1">
                 <label class="form-label fw-bold mb-0">Results</label>
-                @if (!string.IsNullOrWhiteSpace(resultsText))
+                @if (string.IsNullOrWhiteSpace(resultsText) == false)
                 {
                     <button class="btn btn-sm btn-outline-secondary" @onclick="() => resultsText = string.Empty">Clear</button>
                 }
