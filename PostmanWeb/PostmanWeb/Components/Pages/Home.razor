@@ -7,25 +7,46 @@
 
 <h1>Postman Clone</h1>
 
-<div class="input-group mb-lg-3">
-    <input class="form-control" placeholder="Insert your URL..." style="max-width: 400px" type="url" @bind="apiUrl" />
-    <button class="btn btn-primary" @onclick="CallApi">Call</button>
+<div class="container mt-4">
+    <h1 class="mb-4">Postman Clone</h1>
 
-    <select class="form-select-lg"  style="max-width: 120px" @bind="selectedAction">
-        <option value="@HttpAction.GET">GET</option>
-        <option value="@HttpAction.POST">POST</option>
-        <option value="@HttpAction.PUT">PUT</option>
-        <option value="@HttpAction.PATCH">PATCH</option>
-        <option value="@HttpAction.DELETE">DELETE</option>
+    <div class="input-group mb-3">
+        <select class="form-select" style="max-width:130px;" @bind="selectedAction">
+            @foreach (var action in Enum.GetValues<HttpAction>())
+            {
+                <option value="@action">@action</option>
+            }
+        </select>
+        <input class="form-control" placeholder="Insert your URL..." style="max-width: 400px" type="url" @bind="apiUrl" input />
 
-    </select>
+        <button class="btn btn-primary px-4" @onclick="CallApi" disabled="@isLoading">
+            @if (isLoading)
+            {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span>Calling Api..</span>
+            }
+            else
+            {
+                <span>Call</span>
+            }
+        </button>
+    </div>
+
+    <div class="d-flex gap-3 align-items-center mb-3">
+        <span class="badge @GetStatusBadgeClass() p-2">Status: @status</span>
+        @if (sw.ElapsedMilliseconds > 0)
+        {
+            <span class="badge bg-secondary p-2">Timp: @sw.ElapsedMilliseconds ms</span>
+        }
+    </div>
+    
 
 </div>
 
 <div class="row">
     <div class="col-md-3">
         <label class="form-label fw-bold">Body JSON</label>
-        <textarea class="form-control bg-light" style="min-height:150px; " rows="6" placeholder="Json...">@bodyText</textarea>
+        <textarea class="form-control bg-light" style="min-height:150px; " rows="6" placeholder="Json..." @bind="bodyText"></textarea>
     </div>
     <div class="col-md 3">
         <label class="form-label fw-bold">Results</label>
@@ -44,6 +65,7 @@
 
     string bodyText = "";
     string resultsText = "";
+    private bool isLoading = false;
 
     private Stopwatch sw = new Stopwatch();
 
@@ -78,4 +100,13 @@
         }
 
     }
+
+    private string GetStatusBadgeClass() => status switch
+    {
+        "Ready (200 OK)" => "bg-success",
+        "Error" or "Invalid URL" => "bg-danger",
+        "Calling API..." => "bg-warning text-dark",
+        _ => "bg-info text-dark"
+    };
+
 }
