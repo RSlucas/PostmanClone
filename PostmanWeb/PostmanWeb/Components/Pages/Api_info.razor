@@ -1,9 +1,26 @@
 ﻿@page "/api"
+@inject NavigationManager NavManager
 
 <PageTitle> Api Infos</PageTitle>
 
-<h3 class="card-title">Api Infos</h3>
+<div class="text-center border-bottom pb-3 mb-4">
+     <div class="d-flex justify-content-center align-items-center gap-4">
+        <h1 class="h2 fw-bold mb-0 text-primary">APIs Info</h1>     
+     </div>
+</div>
+
+
+
+<ul class="nav nav-pills justify-content-center mb-4 gap-2">
+    <li class="nav-item">
+        <button class="nav-link @(activeTab == "apis" ? "active": "")"
+        @onclick=' () =>  activeTab = "apis"'>
+        <i class=" me-1"></i>APIS for testing
+    </button>
+    </li>
+
+</ul>
 
 @code {
-
+    private string activeTab = "apis";
 }
