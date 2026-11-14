@@ -190,7 +190,7 @@
             Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(6);
             Name = "Dashboard";
-            Text = "Postman Clone";
+            Text = "mmmmmmm,,,   ";
             Load += Dashboard_Load;
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();

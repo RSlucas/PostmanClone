@@ -1,9 +1,9 @@
 ﻿.custom-pills .nav-link {
-    color: #555555;
-    background-color: #e9ecef ;
+    background-color: #dcd6f7 ;
+    color: #555555 ;
 }
 
-    .custom-pills .nav-link.active {
-        background-color: #8b5cf6 ;
-        color: white; 
-    }
+.custom-pills .nav-link.active {
+    background-color: #5c5470; 
+    color: white;
+}
