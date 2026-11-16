@@ -35,13 +35,47 @@
             <div class="list-group">
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <span><code>GET</code> https://api.example.com/status</span>
-                    <span class="bagde bg-success">Functional</span>
+                    <span class="bagde ">Functional</span>
                 </div>
             </div>
         </div>
     }
     else if(activeTab=="codes")
     {
+
+        <div class="mb-4">
+            <input type="text" class="form-control" placeholder="Search code (ex:404; 200)" 
+                @bind="searchTerm" @bind:event="oninput" />
+
+        </div>
+
+        <div class="accordion" id="statusCodesAccordion">
+            @foreach (var group in FilteredGroups)
+            {
+                <div class=" card mb-3 border">
+                    <div class="card-header @group.HeaderClass text-white fw-bold">
+                        @group.CategoryName
+                    </div>
+                    <div class=" card-body">
+                        <ul class=" list-group list-group-flush">
+                            @foreach (var item in group.Items)
+                            {
+                                <li class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-md-center py-3">
+                                    <div>
+                                        <span class="badge @group.BadgeClass me-2 fs-6">@item.Code</span>
+                                        <strong>@item.Title:</strong>
+                                    </div>
+                                    <span class="text-muted mt-1 mt-md-0">@item.Description</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
         <div class="card p-4 shadow-sm border-0">
             <h3 class="mb-3">HTTP common codes</h3>
             <p class="text-muted">Debugging guide:</p>
@@ -116,4 +150,116 @@
 
 @code {
     private string activeTab = "apis";
+    private string searchTerm = "";
+
+    private class StatusCodeItem
+    {
+        public string Code { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+
+    private class StatusGroup
+    {
+        public string CategoryName { get; set; } = "";
+        public string HeaderClass { get; set; } = "";
+        public string BadgeClass { get; set; } = "";
+        public List<StatusCodeItem> Items { get; set; } = new();
+    }
+
+
+    private List<StatusGroup> allGroups = new()
+    {
+        new StatusGroup {
+            CategoryName = "1xx: Informational",
+            HeaderClass = "bg-secondary",
+            BadgeClass = "bg-secondary",
+            Items = new() {
+                new StatusCodeItem { Code = "100", Title = "Continue", Description = "The server has received the request headers and the client should proceed to send the request body." },
+                new StatusCodeItem { Code = "101", Title = "Switching Protocols", Description = "The requester has asked the server to switch protocols (e.g., to WebSocket)." }
+            }
+        },
+        new StatusGroup {
+            CategoryName = "2xx: Success",
+            HeaderClass = "bg-success",
+            BadgeClass = "bg-success",
+            Items = new() {
+                new StatusCodeItem { Code = "200", Title = "OK", Description = "The request succeeded and the server returned the expected data." },
+                new StatusCodeItem { Code = "201", Title = "Created", Description = "The request succeeded and a new resource was created (common with POST requests)." },
+                new StatusCodeItem { Code = "204", Title = "No Content", Description = "The request succeeded, but there is no payload/body to return (common with DELETE requests)." },
+                new StatusCodeItem { Code = "206", Title = "Partial Content", Description = "The server is delivering only a portion of the resource, typically used for streaming or range requests." }
+            }
+        },
+        new StatusGroup {
+            CategoryName = "3xx: Redirection",
+            HeaderClass = "bg-warning text-dark",
+            BadgeClass = "bg-warning text-dark",
+            Items = new() {
+                new StatusCodeItem { Code = "301", Title = "Moved Permanently", Description = "The target resource has been assigned a new permanent URL." },
+                new StatusCodeItem { Code = "302", Title = "Found (Temporary Redirect)", Description = "The resource resides temporarily under a different URI." },
+                new StatusCodeItem { Code = "304", Title = "Not Modified", Description = "The resource has not changed since the last request; the client can use its cached version." },
+                new StatusCodeItem { Code = "307", Title = "Temporary Redirect", Description = "The request should be repeated with another URI, preserving the original HTTP method." }
+            }
+        },
+        new StatusGroup {
+            CategoryName = "4xx: Client Errors",
+            HeaderClass = "bg-danger",
+            BadgeClass = "bg-danger",
+            Items = new() {
+                new StatusCodeItem { Code = "400", Title = "Bad Request", Description = "The server cannot process the request due to malformed syntax or invalid parameters." },
+                new StatusCodeItem { Code = "401", Title = "Unauthorized", Description = "The client lacks valid authentication credentials (semantically means unauthenticated)." },
+                new StatusCodeItem { Code = "403", Title = "Forbidden", Description = "The server understands the request but refuses to authorize it." },
+                new StatusCodeItem { Code = "404", Title = "Not Found", Description = "The requested resource could not be found on the server." },
+                new StatusCodeItem { Code = "405", Title = "Method Not Allowed", Description = "The HTTP method used is not supported for that resource." },
+                new StatusCodeItem { Code = "409", Title = "Conflict", Description = "The request could not be completed due to a conflict with the current state of the resource." },
+                new StatusCodeItem { Code = "429", Title = "Too Many Requests", Description = "The client has sent too many requests in a given amount of time (rate limiting)." }
+            }
+        },
+        new StatusGroup {
+            CategoryName = "5xx: Server Errors",
+            HeaderClass = "bg-dark",
+            BadgeClass = "bg-dark",
+            Items = new() {
+                new StatusCodeItem { Code = "500", Title = "Internal Server Error", Description = "A generic error message for an unexpected condition on the server." },
+                new StatusCodeItem { Code = "502", Title = "Bad Gateway", Description = "An invalid response was received by an intermediary proxy or gateway." },
+                new StatusCodeItem { Code = "503", Title = "Service Unavailable", Description = "The server is temporarily overloaded or down for maintenance." },
+                new StatusCodeItem { Code = "504", Title = "Gateway Timeout", Description = "An intermediary proxy or gateway did not receive a timely response." }
+            }
+        }
+    };
+
+    private IEnumerable<StatusGroup> FilteredGroups
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return allGroups;
+
+            var term = searchTerm.Trim().ToLower();
+            var result = new List<StatusGroup>();
+
+            foreach (var group in allGroups)
+            {
+                var matchingItems = group.Items.Where(i =>
+                    i.Code.ToLower().Contains(term) ||
+                    i.Title.ToLower().Contains(term) ||
+                    i.Description.ToLower().Contains(term)
+                ).ToList();
+
+                if (matchingItems.Any())
+                {
+                    result.Add(new StatusGroup
+                    {
+                        CategoryName = group.CategoryName,
+                        HeaderClass = group.HeaderClass,
+                        BadgeClass = group.BadgeClass,
+                        Items = matchingItems
+                    });
+                }
+            }
+
+            return result;
+        }
+    }
+    }
 }
