@@ -1,9 +1,32 @@
 ﻿.custom-pills .nav-link {
-    background-color: #dcd6f7 ;
-    color: #555555 ;
+    background-color: #e5e5e5;
+    color: #555555;
+    padding: 8px 20px;
+    transition: 0.2s;
 }
 
-.custom-pills .nav-link.active {
-    background-color: #5c5470; 
-    color: white;
+    .custom-pills .nav-link:hover {
+        background-color: #dcd6f7;
+    }
+
+    .custom-pills .nav-link.active {
+        background-color: #424874;
+        color: white;
+    }
+
+
+.first-color {
+    background: #f4eeff;
+}
+
+.second-color {
+    background: #dcd6f7;
+}
+
+.third-color {
+    background: #a6b1e1;
+}
+
+.fourth-color {
+    background: #424874;
 }
